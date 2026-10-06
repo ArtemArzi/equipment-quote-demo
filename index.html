@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Прототип подготовки коммерческого предложения на условных данных.">
+  <title>Подготовка КП · Демо</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563eb'/%3E%3Cpath d='M9 7h10l5 5v13H9z' fill='white'/%3E%3Cpath d='M12 15h9M12 19h9' stroke='%232563eb' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="workspace">
+    <header class="heading">
+      <div><div class="title-line"><h1>Подготовка КП</h1><span class="badge">Черновик</span></div><p class="subtitle">Пример интерфейса · Условные данные</p></div>
+      <span class="header-note">КП-0001</span>
+    </header>
+    <div class="columns">
+      <div class="editor">
+        <section class="card client-card" aria-labelledby="client-heading">
+          <h2 id="client-heading">Клиент и сделка</h2>
+          <div class="client-row"><div><strong id="client-name"></strong><p id="deal-name" class="muted"></p></div><button class="button outline" id="select-deal">Выбрать сделку</button></div>
+        </section>
+        <section class="card products-card" aria-labelledby="products-heading">
+          <div class="section-title"><h2 id="products-heading">Товары</h2><span id="item-count" class="muted"></span></div>
+          <div class="search-wrap">
+            <label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><path d="m15 15 5 5"></path></svg><span class="sr-only">Название или артикул товара</span><input id="search" type="search" placeholder="Название или артикул" autocomplete="off"></label>
+            <button class="button primary" id="search-button">Добавить товар <span aria-hidden="true">+</span></button>
+          </div>
+          <div id="search-results" class="search-results" hidden></div>
+          <div class="table-scroll"><table class="editor-table"><thead><tr><th>Товар</th><th>Кол-во</th><th>Цена</th><th>Сумма</th><th><span class="sr-only">Действия</span></th></tr></thead><tbody id="items"></tbody><tfoot><tr><td colspan="3" id="editor-total-label">Итого</td><td colspan="2" id="editor-total"></td></tr></tfoot></table></div>
+          <p id="empty-message" class="empty" hidden>В предложении пока нет товаров. Найдите их по названию или артикулу.</p>
+          <p class="field-note">В демо количество задаётся целым числом от 1 до 10 000.</p>
+        </section>
+        <section class="card conditions" aria-labelledby="conditions-heading">
+          <h2 id="conditions-heading">Условия предложения</h2>
+          <div class="condition-row"><label for="delivery">Срок поставки</label><div><input id="delivery" class="text-input" type="text" maxlength="160" placeholder="Нужно уточнить" aria-describedby="delivery-note"><p id="delivery-note" class="field-note warning-text">Укажите срок перед выпуском документа.</p></div></div>
+          <p class="field-note">Общий срок для товаров этого КП. Цены и правила проверки условные, налоги и скидки не рассчитываются.</p>
+        </section>
+      </div>
+      <section class="preview-panel" aria-labelledby="preview-heading"><div class="section-title"><h2 id="preview-heading">Предпросмотр КП</h2><span class="muted">A4</span></div><article class="paper" id="paper"></article></section>
+    </div>
+    <footer class="action-bar">
+      <div class="validation"><span class="status-icon" aria-hidden="true">!</span><div><strong id="validation-message"></strong><p id="validation-detail"></p></div></div>
+      <div class="actions"><button class="button outline" id="save">Сохранить черновик</button><button class="button primary" id="download" disabled>Скачать КП · HTML</button><button class="button quiet" id="print" disabled>Печать / PDF</button></div>
+    </footer>
+    <div class="bottom-notes"><p id="save-status" role="status">Черновик сохраняется только в этом браузере.</p><button class="text-button" id="reset">Вернуть пример</button></div>
+    <p id="toast" class="toast" role="status" hidden></p>
+  </main>
+  <dialog id="deal-dialog" aria-labelledby="dialog-title"><div class="dialog-heading"><h2 id="dialog-title">Выберите условную сделку</h2><button id="close-dialog" class="icon-button" aria-label="Закрыть выбор сделки">×</button></div><div id="deal-options"></div><p class="field-note">Меняется клиент и название сделки. Товары и условия сохраняются.</p></dialog>
+</body>
+</html>
